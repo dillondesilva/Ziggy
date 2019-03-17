@@ -16,7 +16,10 @@
    version="1.1"
    id="svg2981"
    inkscape:version="0.92.2 5c3e80d, 2017-08-06"
-   sodipodi:docname="bg_one.svg">
+   sodipodi:docname="bg_one.svg"
+   inkscape:export-filename="/Users/Dillon/projects/happy_zig/bg_one.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
   <defs
      id="defs2975">
     <linearGradient
@@ -62,9 +65,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.24748737"
-     inkscape:cx="1046.0773"
-     inkscape:cy="326.26717"
+     inkscape:zoom="0.35"
+     inkscape:cx="289.75677"
+     inkscape:cy="619.70717"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -98,11 +101,11 @@
        y="-23.434505"
        transform="rotate(-90)" />
     <path
-       style="opacity:1;fill:url(#linearGradient5020);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.56500006;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;"
-       d="M -23.434505,309.09521 C 1.6421874,284.99851 -3.4148177,230.35963 -13.175375,180.81345 -23.179835,130.02919 41.205378,81.290131 32.488228,41.327046 24.274358,3.6712258 -9.4523336,32.744486 -23.434505,-7.6488342 c 23.29522955,-58.8225708 142.187575,-19.4876708 244.172595,0 L 200.32738,132.20235 c -80.83692,113.95368 8.7928,130.2015 20.41071,176.89286 z"
+       style="opacity:1;fill:url(#linearGradient5020);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.56500006;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -23.434505,309.09521 C 17.446388,344.70327 -2.9439476,232.13847 -13.175375,180.81345 -23.294475,130.05191 40.373644,81.46253 32.488228,41.327046 24.405775,0.18867514 -5.9870471,-59.085606 -23.434505,-7.6488342 c 23.29522955,-58.8225708 142.187575,-19.4876708 244.172595,0 C 171.80654,-50.838187 149.00829,-56.058445 200.69906,25.52388 l -21.53835,93.82728 c -1.8541,16.60626 -1.9973,43.41563 1.57614,66.51389 3.27789,21.18779 22.73729,38.65358 14.30518,55.05218 -12.06082,23.45563 -43.98857,62.88335 -28.55479,70.76871 45.46036,23.22639 64.20159,15.73899 54.25085,-2.59073 z"
        id="rect3538"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cssccccc" />
+       sodipodi:nodetypes="cssccccssscc" />
   </g>
   <g
      inkscape:groupmode="layer"
