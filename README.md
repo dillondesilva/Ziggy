@@ -1,2 +1,2 @@
-# untitled-game
-## An untitled game in development
+# Ziggy
+## Help Ziggy avoid the evil aliens for as long as you can
