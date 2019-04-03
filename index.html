@@ -23,9 +23,11 @@
         this.load.image('badguy-A', 'assets/badguy.svg');
         this.load.image('explosion', 'assets/explosion.svg');
         this.load.image('playerbullet', 'assets/bullets.svg');
+        this.load.image('enemybullet', 'assets/enemyBullet.svg');
     }
     var player;
     var playerBullets;
+    var enemyBulletTime = 0;
     var bulletTime = 0;
     var ALIVE = true;
 
@@ -56,6 +58,17 @@
         playerBullets.setAll('anchor.y', 1);
         playerBullets.setAll('outOfBoundsKill', true);
         playerBullets.setAll('checkWorldBounds', true);
+
+        // Group of bullets for the enemy. Initial group has the pool
+        // of bullets set to 30;
+        enemyBullets = game.add.group();
+        enemyBullets.enableBody = true;
+        enemyBullets.physicsBodyType = Phaser.Physics.ARCADE;
+        enemyBullets.createMultiple(30, 'enemybullet');
+        enemyBullets.setAll('anchor.x', 0.5);
+        enemyBullets.setAll('anchor.y', 1);
+        enemyBullets.setAll('outOfBoundsKill', true);
+        enemyBullets.setAll('checkWorldBounds', true);
     }
 
     function update ()
@@ -76,6 +89,10 @@
             player.angle += 1; 
         }
 
+        for (e in enemies.children) {
+            console.log(e);
+            enemies.children[e].angle += 3;
+        }
         game.physics.arcade.overlap(player, enemies, playerDeath, null, this);
         game.physics.arcade.overlap(playerBullets, enemies, enemyDeath, null, this);
     }
@@ -100,6 +117,11 @@
     enemy.outOfBoundsKill = true;
 
     enemies.add(enemy);
+    
+    // // enemy bullet is fired after one second
+    // setTimeout(function() {
+    //     fireEnemyBullet(enemy);
+    // }, 500);
     }
 
     function fireBullet () {
@@ -111,7 +133,7 @@
             if (bullet) {
             bullet.reset(player.x + 7, player.y + 8);
             bullet.body.velocity.y = -600;
-            bulletTime = game.time.now +200;
+            bulletTime = game.time.now +1000;
             }
         }
     }
@@ -129,7 +151,24 @@
 
         // Kill the bullet and enemies
         bullet.kill();
+
+        setTimeout(function() {
+             enemy.kill();
+         }, 1000);
     }
+
+    // Firing an enemy bullet
+    // function fireEnemyBullet (enemy) {
+    //     if (game.time.now > enemyBulletTime) {
+    //     var bullet = enemyBullets.getFirstExists(false);
+
+    //     if (bullet) {
+    //         bullet.reset(enemy.x + 20, enemy.y + 8);
+    //         bullet.body.velocity.y = 600;
+    //         enemyBulletTime = game.time.now + 200;
+    //     }
+    //     }
+    // }
 
 </script>
 </div>
