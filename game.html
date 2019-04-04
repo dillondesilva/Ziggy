@@ -31,6 +31,7 @@
         this.load.image('enemybullet', 'assets/enemyBullet.svg');
         this.load.image('star', 'assets/star.svg');
         this.load.image('badguy-B', 'assets/anotherBadguy.svg');
+        this.load.image('badguy-C', 'assets/rareBadguy.svg');
     }
 
     // Declaration of global variables
@@ -70,6 +71,7 @@
         // Looping the manufacturing of enemies and stars
         game.time.events.loop(Phaser.Timer.HALF * 5, createEnemyA, this);
         game.time.events.loop(Phaser.Timer.HALF * 4, createEnemyB, this);
+        game.time.events.loop(Phaser.Timer.HALF * 10, createEnemyC, this);
         game.time.events.loop(Phaser.Timer.HALF * 2, createStar, this);
     }
 
@@ -122,7 +124,7 @@
         }, 3000);
     }
 
-    // createEnemyA(), createEnemyB() and createStar() all dynamically 
+    // createEnemyA(), createEnemyB(), createEnemyC() and createStar() all dynamically 
     // generate these obstacles or background effects and se the sprite properties
 
     function createEnemyA () {
@@ -144,6 +146,21 @@
     function createEnemyB () {
         // Add our sprite here with a random x co-ordinate
         var enemy = game.add.sprite(Math.floor(Math.random() * 750, 10), -60, 'badguy-B');
+
+        // Activate the physics system and choose an arbitary gravity value
+        game.physics.arcade.enable(enemy);
+
+        var gravityLevel = Math.floor(Math.floor(Math.random() * 600, 250));
+        enemy.body.gravity.y = gravityLevel;
+        enemy.anchor.setTo(0.5, 0.5);
+        enemy.checkWorldBounds = true;
+
+        ENEMIES.add(enemy);
+    }
+
+    function createEnemyC () {
+        // Add our sprite here with a random x co-ordinate
+        var enemy = game.add.sprite(Math.floor(Math.random() * 750, 10), -60, 'badguy-C');
 
         // Activate the physics system and choose an arbitary gravity value
         game.physics.arcade.enable(enemy);
