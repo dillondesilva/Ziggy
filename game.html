@@ -16,10 +16,13 @@
 <h1 style="float: right; font-family: 'Anton', sans-serif;" id="scoreText">Score: 0</h1>
 <div style="text-align:center;">
 <script type="text/javascript">
-    var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update});;
     var scoreText = document.getElementById('scoreText');
-    function preload ()
-    {
+
+    // Initialise Game
+    var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update});;
+
+    // Load all game assets
+    function preload () {
         this.load.image('player', 'assets/ziggy.svg');
         this.load.image('background', 'assets/bg_one.svg');
         this.load.image('badguy-A', 'assets/badguy.svg');
@@ -29,170 +32,161 @@
         this.load.image('star', 'assets/star.svg');
         this.load.image('badguy-B', 'assets/anotherBadguy.svg');
     }
-    var player;
-    var playerBullets;
-    var enemyBulletTime = 0;
-    var bulletTime = 0;
-    var ALIVE = true;
-    var enemies;
-    var stars;
 
+    // Declaration of global variables
+    var PLAYER;
+    var PLAYER_BULLETS;
+    var BULLET_TIME = 0;
+    var ALIVE = true;
+    var ENEMIES;
+    var STARS;
     var SCORE = 0;
 
-    function create ()
-    {
+    // Begin creating and defining parameters for the game
+    function create () {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
+
         this.add.image(0, 0, 'background');
-        player = game.add.sprite(400, 450, 'player');
+        PLAYER = game.add.sprite(400, 450, 'player');
 
-        player.anchor.setTo(0.5, 0.5);
+        PLAYER.anchor.setTo(0.5, 0.5);
 
-        enemies = game.add.group();
-        stars = game.add.group();
+        ENEMIES = game.add.group();
+        STARS = game.add.group();
         
-        game.physics.enable(player, Phaser.Physics.ARCADE);
+        game.physics.enable(PLAYER, Phaser.Physics.ARCADE);
 
+        // The group of bullets for player one and its setup
+        PLAYER_BULLETS = game.add.group();
+        PLAYER_BULLETS.enableBody = true;
+        PLAYER_BULLETS.physicsBodyType = Phaser.Physics.ARCADE;
+        PLAYER_BULLETS.createMultiple(30, 'playerbullet');
+        PLAYER_BULLETS.setAll('anchor.x', 0.5);
+        PLAYER_BULLETS.setAll('anchor.y', 1);
+        PLAYER_BULLETS.setAll('outOfBoundsKill', true);
+        PLAYER_BULLETS.setAll('checkWorldBounds', true);
 
+        // Looping the manufacturing of enemies and stars
         game.time.events.loop(Phaser.Timer.HALF * 5, createEnemyA, this);
         game.time.events.loop(Phaser.Timer.HALF * 4, createEnemyB, this);
         game.time.events.loop(Phaser.Timer.HALF * 2, createStar, this);
-
-        // The group of bullets for player one and its setup
-        playerBullets = game.add.group();
-        playerBullets.enableBody = true;
-        playerBullets.physicsBodyType = Phaser.Physics.ARCADE;
-        playerBullets.createMultiple(30, 'playerbullet');
-        playerBullets.setAll('anchor.x', 0.5);
-        playerBullets.setAll('anchor.y', 1);
-        playerBullets.setAll('outOfBoundsKill', true);
-        playerBullets.setAll('checkWorldBounds', true);
-
-        // Group of bullets for the enemy. Initial group has the pool
-        // of bullets set to 30;
-        enemyBullets = game.add.group();
-        enemyBullets.enableBody = true;
-        enemyBullets.physicsBodyType = Phaser.Physics.ARCADE;
-        enemyBullets.createMultiple(30, 'enemybullet');
-        enemyBullets.setAll('anchor.x', 0.5);
-        enemyBullets.setAll('anchor.y', 1);
-        enemyBullets.setAll('outOfBoundsKill', true);
-        enemyBullets.setAll('checkWorldBounds', true);
     }
 
-    function update ()
-    {
-        cursors = this.input.keyboard.createCursorKeys();
+    // Code for every frame
+    function update () {
+        var CURSORS = this.input.keyboard.createCursorKeys();
 
+        // Code to run for if player is alive
         if (ALIVE) {
-            if (cursors.left.isDown) {
-                player.x -= 10;
-            } else if (cursors.right.isDown) {
-                player.x += 10;
+            if (CURSORS.left.isDown) {
+                PLAYER.x -= 10;
+            } else if (CURSORS.right.isDown) {
+                PLAYER.x += 10;
             } 
 
-            if (cursors.up.isDown) {
+            if (CURSORS.up.isDown) {
                 fireBullet();
             }
         } else {
-            player.angle += 3;
+            PLAYER.angle += 3;
         }
 
-        for (e in enemies.children) {
-            console.log(e);
-            enemies.children[e].angle += 10;
+        for (e in ENEMIES.children) {
+            ENEMIES.children[e].angle += 10;
         }
 
-        for (s in stars.children) {
-            console.log(s);
-            stars.children[s].angle += 1;
+        for (s in STARS.children) {
+            STARS.children[s].angle += 1;
         }
-        game.physics.arcade.overlap(player, enemies, playerDeath, null, this);
-        game.physics.arcade.overlap(playerBullets, enemies, enemyDeath, null, this);
+
+        // Checking for a collision between sprite and enemies 
+        // or player bullets and enemy
+        game.physics.arcade.overlap(PLAYER, ENEMIES, playerDeath, null, this);
+        game.physics.arcade.overlap(PLAYER_BULLETS, ENEMIES, enemyDeath, null, this);
     }
 
+    // Oh noes! This function seems pretty self-explanatory
     function playerDeath() {
-        console.log('hit');
-        player.loadTexture('explosion', 0);
+        PLAYER.loadTexture('explosion', 0);
+        // RIP
         ALIVE = false;
 
+        // MEGA RIP
         scoreText.innerText = "GAME OVER! Score: " + String(SCORE)
-        enemies.destroy();
+        ENEMIES.destroy();
 
+        // ULTIMATE RIP
         setTimeout(function() {
-             player.kill();
-         }, 3000);
+             PLAYER.kill();
+        }, 3000);
     }
 
+    // createEnemyA(), createEnemyB() and createStar() all dynamically 
+    // generate these obstacles or background effects and se the sprite properties
+
     function createEnemyA () {
-    // Add our sprite here with a random x co-ordinate
-    var enemy = game.add.sprite(Math.floor(Math.random() * 750, 10), -60, 'badguy-A');
+        // Add our sprite here with a random x co-ordinate
+        var enemy = game.add.sprite(Math.floor(Math.random() * 750, 10), -60, 'badguy-A');
 
-    // Activate the physics system and choose an arbitary gravity value
-    game.physics.arcade.enable(enemy);
+        // Activate the physics system and choose an arbitary gravity value
+        game.physics.arcade.enable(enemy);
 
-    var gravityLevel = Math.floor(Math.floor(Math.random() * 600, 250));
-    enemy.body.gravity.y = gravityLevel;
-    enemy.anchor.setTo(0.5, 0.5);
-    enemy.checkWorldBounds = true;
-    enemy.outOfBoundsKill = true;
+        var gravityLevel = Math.floor(Math.floor(Math.random() * 600, 250));
+        enemy.body.gravity.y = gravityLevel;
+        enemy.anchor.setTo(0.5, 0.5);
+        enemy.checkWorldBounds = true;
+        enemy.outOfBoundsKill = true;
 
-    enemies.add(enemy);
-    
-    // // enemy bullet is fired after one second
-    // setTimeout(function() {
-    //     fireEnemyBullet(enemy);
-    // }, 500);
+        ENEMIES.add(enemy);
     }
 
     function createEnemyB () {
-    // Add our sprite here with a random x co-ordinate
-    var enemy = game.add.sprite(Math.floor(Math.random() * 750, 10), -60, 'badguy-B');
+        // Add our sprite here with a random x co-ordinate
+        var enemy = game.add.sprite(Math.floor(Math.random() * 750, 10), -60, 'badguy-B');
 
-    // Activate the physics system and choose an arbitary gravity value
-    game.physics.arcade.enable(enemy);
+        // Activate the physics system and choose an arbitary gravity value
+        game.physics.arcade.enable(enemy);
 
-    var gravityLevel = Math.floor(Math.floor(Math.random() * 600, 250));
-    enemy.body.gravity.y = gravityLevel;
-    enemy.anchor.setTo(0.5, 0.5);
-    enemy.checkWorldBounds = true;
+        var gravityLevel = Math.floor(Math.floor(Math.random() * 600, 250));
+        enemy.body.gravity.y = gravityLevel;
+        enemy.anchor.setTo(0.5, 0.5);
+        enemy.checkWorldBounds = true;
 
-    enemies.add(enemy);
-    
-    // // enemy bullet is fired after one second
-    // setTimeout(function() {
-    //     fireEnemyBullet(enemy);
-    // }, 500);
+        ENEMIES.add(enemy);
     }
 
     function createStar() {
-    // Add our sprite here with a random x co-ordinate
-    var star = game.add.sprite(Math.floor(Math.random() * 700, 10), -60, 'star');
+        // Add our sprite here with a random x co-ordinate
+        var star = game.add.sprite(Math.floor(Math.random() * 700, 10), -60, 'star');
 
-    // Activate the physics system and set gravity on it to 250
-    game.physics.arcade.enable(star);
+        // Activate the physics system and set gravity on it to 250
+        game.physics.arcade.enable(star);
 
-    star.body.gravity.y = 250;
-    star.anchor.setTo(0.5, 0.5);
-    star.checkWorldBounds = true;
+        star.body.gravity.y = 250;
+        star.anchor.setTo(0.5, 0.5);
+        star.checkWorldBounds = true;
 
-    stars.add(star);        
+        STARS.add(star);        
     }
 
     function fireBullet () {
-        if (game.time.now > bulletTime) {
+        // Checking if the one second cooldown has occured
+        if (game.time.now > BULLET_TIME) {
             // Retrieving the first bullet from the pool
-            var bullet = playerBullets.getFirstExists(false);
+            var bullet = PLAYER_BULLETS.getFirstExists(false);
 
             // And Fire!
             if (bullet) {
-            bullet.reset(player.x + 7, player.y + 8);
-            bullet.body.velocity.y = -600;
-            bulletTime = game.time.now +1000;
+                bullet.reset(PLAYER.x + 7, PLAYER.y + 8);
+                bullet.body.velocity.y = -600;
+                BULLET_TIME = game.time.now +1000;
             }
         }
     }
 
+    // Yay! If this function is hit, the player must be doing
+    // something right
     function enemyDeath (bullet, enemy) {
         // Deactivate the enemies basic abilities. E.g: Gravity
         enemy.body.moves = false;
@@ -211,20 +205,6 @@
              enemy.kill();
          }, 1000);
     }
-
-    // Firing an enemy bullet
-    // function fireEnemyBullet (enemy) {
-    //     if (game.time.now > enemyBulletTime) {
-    //     var bullet = enemyBullets.getFirstExists(false);
-
-    //     if (bullet) {
-    //         bullet.reset(enemy.x + 20, enemy.y + 8);
-    //         bullet.body.velocity.y = 600;
-    //         enemyBulletTime = game.time.now + 200;
-    //     }
-    //     }
-    // }
-
 </script>
 </div>
 
