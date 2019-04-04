@@ -10,9 +10,9 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="70mm"
-   height="62mm"
-   viewBox="0 0 70 62"
+   width="39mm"
+   height="39mm"
+   viewBox="0 0 39 39"
    version="1.1"
    id="svg10420"
    inkscape:version="0.92.2 5c3e80d, 2017-08-06"
@@ -1045,9 +1045,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35"
-     inkscape:cx="-115.71429"
-     inkscape:cy="560"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="74.081094"
+     inkscape:cy="86.55298"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1072,10 +1072,10 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-235)">
+     transform="translate(0,-258)">
     <g
        id="g12145"
-       transform="matrix(0.34078032,0,0,0.34078032,-2.5887341,221.62622)">
+       transform="matrix(0.22113989,0,0,0.22113989,-5.1495996,248.49085)">
       <path
          style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.16499996;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke"
          id="path11920"
