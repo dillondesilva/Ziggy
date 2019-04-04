@@ -9,13 +9,13 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="26mm"
-   height="33mm"
-   viewBox="0 0 26 33"
+   width="21mm"
+   height="23mm"
+   viewBox="0 0 21 23"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.2 5c3e80d, 2017-08-06"
-   sodipodi:docname="sprite.svg"
+   sodipodi:docname="ziggy.svg"
    inkscape:export-filename="/Users/Dillon/projects/happy_zig/sprite.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96">
@@ -55,7 +55,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-264)">
+     transform="translate(0,-274)">
     <g
        inkscape:transform-center-y="0.23890884"
        inkscape:transform-center-x="2.5733309"
@@ -94,7 +94,7 @@
     </g>
     <g
        id="g9058"
-       transform="matrix(0.74793975,0,0,0.74793975,-25.667698,227.43044)">
+       transform="matrix(0.60685969,0,0,0.60685969,-21.352493,241.51115)">
       <g
          transform="translate(-34.160988,-8.7111762)"
          id="g2921">
